@@ -3,9 +3,11 @@ import 'package:provider/provider.dart';
 
 import '../../core/constants/app_colors.dart';
 import '../../providers/theme_provider.dart';
+import '../premium/paywall_screen.dart';
 import '../tasbih/tasbih_screen.dart';
 import '../ramadan/ramadan_screen.dart';
 import '../qaza/qaza_tracker_screen.dart';
+import 'theme_picker_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -66,20 +68,30 @@ class SettingsScreen extends StatelessWidget {
             title: 'Calculation Method',
             theme: theme,
           ),
-          _ComingSoonTile(
+          _NavTile(
             icon: Icons.palette_outlined,
             title: 'Themes',
+            subtitle: 'Choose from 8 themes, including 6 Pro themes',
             theme: theme,
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const ThemePickerScreen()),
+            ),
           ),
           _ComingSoonTile(
             icon: Icons.language_outlined,
             title: 'Language',
             theme: theme,
           ),
-          _ComingSoonTile(
+          _NavTile(
             icon: Icons.star_outline_rounded,
             title: 'Upgrade to Pro',
+            subtitle: 'Remove ads, unlock themes & Qibla compass',
             theme: theme,
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const PaywallScreen()),
+            ),
           ),
           const SizedBox(height: 24),
         ],
