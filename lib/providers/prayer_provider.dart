@@ -3,6 +3,7 @@ import 'package:adhan/adhan.dart';
 import 'package:geolocator/geolocator.dart';
 import '../core/services/prayer_service.dart';
 import '../core/services/location_service.dart';
+import '../core/services/notification_service.dart';
 import '../core/services/widget_service.dart';
 import '../core/constants/app_assets.dart';
 import '../models/prayer_model.dart';
@@ -27,7 +28,11 @@ class PrayerProvider extends ChangeNotifier {
     try {
       _position = await LocationService.getCurrentPosition();
       _prayerTimes = PrayerService.getPrayerTimes(_position!);
-      await WidgetService.updateWidget();
+      // Update widget and notifications in parallel (both non-blocking on failure)
+      await Future.wait([
+        WidgetService.updateWidget(),
+        NotificationService.scheduleAllNotifications(),
+      ]);
     } catch (e) {
       _error = e.toString();
     }

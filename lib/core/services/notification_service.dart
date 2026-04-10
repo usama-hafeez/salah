@@ -1,4 +1,5 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 import 'prayer_service.dart';
@@ -11,6 +12,10 @@ class NotificationService {
   static Future<void> init() async {
     tz.initializeTimeZones();
 
+    // Set local timezone so notifications fire at correct local time
+    final timeZoneName = await FlutterTimezone.getLocalTimezone();
+    tz.setLocalLocation(tz.getLocation(timeZoneName));
+
     const androidSettings =
         AndroidInitializationSettings('@mipmap/ic_launcher');
     const settings = InitializationSettings(android: androidSettings);
@@ -18,14 +23,14 @@ class NotificationService {
     await _plugin.initialize(settings: settings);
 
     // Request notification permission on Android 13+
-    final androidPlugin =
-        _plugin.resolvePlatformSpecificImplementation<
+    final androidPlugin = _plugin
+        .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>();
     await androidPlugin?.requestNotificationsPermission();
   }
 
   /// Schedule Azaan notifications for today and tomorrow.
-  /// Call this on app start and whenever settings change.
+  /// Call this on app start and whenever prayer settings change.
   static Future<void> scheduleAllNotifications() async {
     await _plugin.cancelAll();
 
