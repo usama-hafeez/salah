@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../providers/theme_provider.dart';
 import '../../../core/utils/date_utils.dart';
+import 'moon_phase_widget.dart';
 
 class DateHeaderWidget extends StatelessWidget {
   const DateHeaderWidget({super.key});
@@ -23,6 +24,7 @@ class DateHeaderWidget extends StatelessWidget {
               letterSpacing: 0.3,
             ),
           ),
+          const MoonPhaseWidget(),
           Text(
             AppDateUtils.gregorianDateString(),
             style: TextStyle(

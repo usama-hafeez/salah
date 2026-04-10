@@ -67,6 +67,16 @@ class AppDateUtils {
     return names[weekday];
   }
 
+  /// Formats DateTime as "Mon 10 Apr" — used in fasting tracker.
+  static String shortDateString(DateTime date) {
+    const days = ['', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    const months = [
+      '', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+    ];
+    return '${days[date.weekday]}  ${date.day} ${months[date.month]}';
+  }
+
   /// Formats DateTime as "h:mm AM/PM".
   static String formatTime(DateTime time) {
     final rawHour = time.hour;

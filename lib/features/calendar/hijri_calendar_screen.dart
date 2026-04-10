@@ -7,6 +7,7 @@ import '../../core/constants/app_colors.dart';
 import '../../core/services/storage_service.dart';
 import '../../providers/theme_provider.dart';
 import '../../shared/ad_banner_widget.dart';
+import 'widgets/islamic_event_badge.dart';
 
 class HijriCalendarScreen extends StatefulWidget {
   const HijriCalendarScreen({super.key});
@@ -386,28 +387,7 @@ class _EventList extends StatelessWidget {
           const SizedBox(height: 8),
           ...events.map((e) => Padding(
                 padding: const EdgeInsets.only(bottom: 6),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 6,
-                      height: 6,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFF4CAF50),
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        e,
-                        style: TextStyle(
-                          color: theme.textSecondary,
-                          fontSize: 13,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                child: IslamicEventBadge(eventName: e, theme: theme),
               )),
         ],
       ),

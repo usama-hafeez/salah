@@ -11,6 +11,7 @@ import '../../core/services/prayer_service.dart';
 import '../../core/services/storage_service.dart';
 import '../../core/utils/date_utils.dart';
 import '../../providers/theme_provider.dart';
+import 'fasting_tracker_screen.dart';
 
 class RamadanScreen extends StatefulWidget {
   const RamadanScreen({super.key});
@@ -194,6 +195,17 @@ class _RamadanScreenState extends State<RamadanScreen> {
         title: Text('Ramadan', style: TextStyle(color: theme.textPrimary)),
         backgroundColor: theme.primary,
         elevation: 0,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.checklist_rounded, color: theme.textPrimary),
+            tooltip: 'Track Fasting',
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (_) => const FastingTrackerScreen()),
+            ),
+          ),
+        ],
       ),
       body: _loading
           ? Center(
