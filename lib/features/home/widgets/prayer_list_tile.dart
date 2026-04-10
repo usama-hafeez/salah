@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../models/prayer_model.dart';
 import '../../../models/prayer_status.dart';
+import '../../../providers/settings_provider.dart';
 import '../../../providers/theme_provider.dart';
 import '../../../core/constants/app_constants.dart';
+import '../../../core/constants/app_strings.dart';
 import '../../../core/utils/date_utils.dart';
 
 class PrayerListTile extends StatelessWidget {
@@ -14,6 +16,8 @@ class PrayerListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.watch<ThemeProvider>().current;
+    // Watch settings so tile rebuilds on language change
+    context.watch<SettingsProvider>();
     final isNext = prayer.status == PrayerStatus.next;
     final isPassed = prayer.status == PrayerStatus.passed;
 
@@ -55,7 +59,7 @@ class PrayerListTile extends StatelessWidget {
           ),
         ),
         title: Text(
-          prayer.name,
+          AppStrings.get(prayer.name.toLowerCase()),
           style: TextStyle(
             color: isPassed ? theme.textSecondary : theme.textPrimary,
             fontSize: 15,

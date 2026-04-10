@@ -43,6 +43,7 @@ class NotificationService {
 
     final allDays = [prayers, tomorrowPrayers];
     int notifId = 0;
+    final now = DateTime.now();
 
     for (final day in allDays) {
       final times = PrayerService.obligatoryPrayers(day);
@@ -51,15 +52,59 @@ class NotificationService {
         final prayerTime = entry.value;
 
         if (prayerTime == null) continue;
-        if (prayerTime.isBefore(DateTime.now())) continue;
-        if (!StorageService.notificationEnabled(prayerName)) continue;
+        if (prayerTime.isBefore(now)) continue;
 
-        await _scheduleAzaan(
-          id: notifId++,
-          prayerName: prayerName,
-          scheduledTime: prayerTime,
-        );
+        // Azaan notification
+        if (StorageService.notificationEnabled(prayerName)) {
+          await _scheduleAzaan(
+            id: notifId++,
+            prayerName: prayerName,
+            scheduledTime: prayerTime,
+          );
+        }
+
+        // Pre-prayer reminder (10 min before)
+        if (StorageService.prePrayerReminder) {
+          final reminderTime =
+              prayerTime.subtract(const Duration(minutes: 10));
+          if (reminderTime.isAfter(now)) {
+            await _scheduleReminder(
+              id: notifId++,
+              title: '$prayerName in 10 minutes',
+              body: 'Time to prepare for $prayerName prayer',
+              scheduledTime: reminderTime,
+            );
+          }
+        }
+
+        // Jumu'a reminder — fire at Dhuhr time on Fridays
+        if (StorageService.jumuaReminder &&
+            prayerName == 'Dhuhr' &&
+            prayerTime.weekday == DateTime.friday) {
+          await _scheduleReminder(
+            id: notifId++,
+            title: "Jumu'a Prayer",
+            body: "Don't forget Jumu'a prayer today",
+            scheduledTime:
+                prayerTime.subtract(const Duration(minutes: 30)),
+          );
+        }
       }
+    }
+
+    // Daily verse notification at 8:00 AM
+    if (StorageService.dailyVerseNotification) {
+      final today8am = DateTime(now.year, now.month, now.day, 8, 0);
+      final tomorrow8am = today8am.add(const Duration(days: 1));
+      final verseTime = today8am.isAfter(now) ? today8am : tomorrow8am;
+      await _scheduleReminder(
+        id: notifId++,
+        title: 'Verse of the Day',
+        body: 'Open the app to read today\'s verse',
+        scheduledTime: verseTime,
+        channelId: 'verse_channel',
+        channelName: 'Verse of the Day',
+      );
     }
   }
 
@@ -81,14 +126,39 @@ class NotificationService {
       enableVibration: true,
     );
 
-    final details = NotificationDetails(android: androidDetails);
-
     await _plugin.zonedSchedule(
       id: id,
       title: prayerName,
       body: 'Time for $prayerName prayer',
       scheduledDate: tz.TZDateTime.from(scheduledTime, tz.local),
-      notificationDetails: details,
+      notificationDetails: NotificationDetails(android: androidDetails),
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+    );
+  }
+
+  static Future<void> _scheduleReminder({
+    required int id,
+    required String title,
+    required String body,
+    required DateTime scheduledTime,
+    String channelId = 'reminder_channel',
+    String channelName = 'Prayer Reminders',
+  }) async {
+    final androidDetails = AndroidNotificationDetails(
+      channelId,
+      channelName,
+      channelDescription: 'Prayer reminders and alerts',
+      importance: Importance.high,
+      priority: Priority.high,
+      enableVibration: true,
+    );
+
+    await _plugin.zonedSchedule(
+      id: id,
+      title: title,
+      body: body,
+      scheduledDate: tz.TZDateTime.from(scheduledTime, tz.local),
+      notificationDetails: NotificationDetails(android: androidDetails),
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
     );
   }
