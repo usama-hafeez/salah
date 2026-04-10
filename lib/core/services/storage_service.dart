@@ -40,6 +40,29 @@ class StorageService {
   static Future<void> setNotificationEnabled(String prayer, bool v) =>
       prefs.setBool('notif_$prayer', v);
 
+  // Pre-prayer reminder (10 min before) — enabled by default
+  static bool get prePrayerReminder =>
+      prefs.getBool('pre_prayer_reminder') ?? true;
+  static Future<void> setPrePrayerReminder(bool v) =>
+      prefs.setBool('pre_prayer_reminder', v);
+
+  // Jumu'a (Friday) reminder — enabled by default
+  static bool get jumuaReminder => prefs.getBool('jumua_reminder') ?? true;
+  static Future<void> setJumuaReminder(bool v) =>
+      prefs.setBool('jumua_reminder', v);
+
+  // Daily verse notification (8 AM) — disabled by default
+  static bool get dailyVerseNotification =>
+      prefs.getBool('daily_verse_notif') ?? false;
+  static Future<void> setDailyVerseNotification(bool v) =>
+      prefs.setBool('daily_verse_notif', v);
+
+  // Islamic event notifications — enabled by default
+  static bool get islamicEventNotification =>
+      prefs.getBool('islamic_event_notif') ?? true;
+  static Future<void> setIslamicEventNotification(bool v) =>
+      prefs.setBool('islamic_event_notif', v);
+
   // Azaan sound: 'mecca', 'egypt', 'pakistan', 'turkey', 'short'
   static String get azaanSound =>
       prefs.getString('azaan_sound') ?? 'mecca';

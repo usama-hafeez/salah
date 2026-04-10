@@ -2,9 +2,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../providers/prayer_provider.dart';
+import '../../../providers/settings_provider.dart';
 import '../../../providers/theme_provider.dart';
-import '../../../core/utils/date_utils.dart';
 import '../../../core/constants/app_constants.dart';
+import '../../../core/constants/app_strings.dart';
+import '../../../core/utils/date_utils.dart';
 
 class NextPrayerCard extends StatefulWidget {
   const NextPrayerCard({super.key});
@@ -46,6 +48,8 @@ class _NextPrayerCardState extends State<NextPrayerCard> {
   Widget build(BuildContext context) {
     final theme = context.watch<ThemeProvider>().current;
     final provider = context.watch<PrayerProvider>();
+    // Watch settings so card rebuilds on language change
+    context.watch<SettingsProvider>();
     final nextPrayer = provider.nextPrayerName;
     final nextTime = provider.nextPrayerTime;
 
@@ -71,7 +75,7 @@ class _NextPrayerCardState extends State<NextPrayerCard> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'NEXT PRAYER',
+            AppStrings.get('next_prayer').toUpperCase(),
             style: TextStyle(
               color: theme.textPrimary.withAlpha(170),
               fontSize: 11,
@@ -120,7 +124,7 @@ class _NextPrayerCardState extends State<NextPrayerCard> {
           ),
           const SizedBox(height: 4),
           Text(
-            'remaining',
+            AppStrings.get('remaining'),
             style: TextStyle(
               color: theme.textPrimary.withAlpha(120),
               fontSize: 11,
