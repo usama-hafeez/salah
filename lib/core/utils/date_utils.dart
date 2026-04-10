@@ -13,6 +13,8 @@ class AppDateUtils {
     return '${_dayName(d.weekday)}, ${_monthName(d.month)} ${d.day}';
   }
 
+  static String hijriMonthName(int month) => _hijriMonthName(month);
+
   static String _hijriMonthName(int month) {
     const names = [
       '',
