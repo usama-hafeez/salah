@@ -4,6 +4,7 @@ import 'prayer_service.dart';
 import 'location_service.dart';
 
 class WidgetService {
+  // Must match the class name registered in AndroidManifest.xml
   static const _androidWidgetName = 'PrayerWidgetProvider';
   static const _iOSWidgetName = 'PrayerWidget';
 

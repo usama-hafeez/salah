@@ -57,7 +57,7 @@
 
         <!-- Home screen widget provider -->
         <receiver
-            android:name="es.antonborri.home_widget.HomeWidgetProvider"
+            android:name=".PrayerWidgetProvider"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>

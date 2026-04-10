@@ -56,6 +56,9 @@ dependencies:
   # Hijri calendar
   hijri: ^3.0.0
 
+  # Timezone detection for notifications
+  flutter_timezone: ^1.0.7
+
   # HTTP (for future features)
   http: ^1.2.1
 
