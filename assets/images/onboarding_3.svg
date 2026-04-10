@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 280">
+
+  <!-- Background -->
+  <rect width="360" height="280" fill="#0a2d20"/>
+
+  <!-- Phone body -->
+  <rect x="110" y="20" width="140" height="245" rx="20" fill="#1c1c1e"/>
+  <!-- Screen -->
+  <rect x="118" y="34" width="124" height="218" rx="12" fill="#2a2a2e"/>
+  <!-- Notch -->
+  <rect x="155" y="34" width="50" height="10" rx="5" fill="#1c1c1e"/>
+
+  <!-- Home screen wallpaper (dark green) -->
+  <rect x="118" y="44" width="124" height="208" rx="6" fill="#0F4C3A"/>
+
+  <!-- Prayer Widget on home screen -->
+  <rect x="126" y="54" width="108" height="70" rx="10" fill="#1A6B52"/>
+  <!-- Widget: app name small -->
+  <text x="134" y="68" font-family="Arial" font-size="7" fill="#9ECFBA">Salah Widget</text>
+  <!-- Widget: prayer name -->
+  <text x="134" y="84" font-family="Arial" font-size="12" fill="#FFFFFF" font-weight="600">Asr</text>
+  <!-- Widget: countdown -->
+  <text x="134" y="100" font-family="Arial" font-size="16" fill="#C9A84C" font-weight="700">01:32:44</text>
+  <!-- Widget: date -->
+  <text x="134" y="114" font-family="Arial" font-size="7" fill="#9ECFBA">15 Shawwal · Thu Apr 9</text>
+
+  <!-- App icons grid -->
+  <!-- Row 1 -->
+  <rect x="126" y="138" width="24" height="24" rx="6" fill="#C9A84C" opacity="0.8"/>
+  <rect x="158" y="138" width="24" height="24" rx="6" fill="#1A6B52" opacity="0.8"/>
+  <rect x="190" y="138" width="24" height="24" rx="6" fill="#4a2980" opacity="0.8"/>
+  <rect x="222" y="138" width="24" height="24" rx="6" fill="#8B1A1A" opacity="0.8"/>
+  <!-- Row 2 -->
+  <rect x="126" y="170" width="24" height="24" rx="6" fill="#185FA5" opacity="0.8"/>
+  <rect x="158" y="170" width="24" height="24" rx="6" fill="#3B6D11" opacity="0.8"/>
+  <rect x="190" y="170" width="24" height="24" rx="6" fill="#854F0B" opacity="0.8"/>
+  <rect x="222" y="170" width="24" height="24" rx="6" fill="#0F4C3A" opacity="0.9"/>
+
+  <!-- Dock -->
+  <rect x="126" y="212" width="108" height="34" rx="10" fill="#000000" opacity="0.4"/>
+  <rect x="134" y="219" width="20" height="20" rx="6" fill="#C9A84C"/>
+  <rect x="162" y="219" width="20" height="20" rx="6" fill="#1A6B52"/>
+  <rect x="190" y="219" width="20" height="20" rx="6" fill="#185FA5"/>
+  <rect x="218" y="219" width="20" height="20" rx="6" fill="#5F5E5A"/>
+
+  <!-- "Widget on your home screen" hint -->
+  <text x="180" y="265" font-family="Arial" font-size="9" fill="#C9A84C"
+    text-anchor="middle" opacity="0.8">Widget on your home screen</text>
+
+  <!-- Left decoration -->
+  <text x="70" y="140" font-family="Arial" font-size="40" fill="#C9A84C"
+    opacity="0.15" font-weight="700">&#9790;</text>
+
+</svg>

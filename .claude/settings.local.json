@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sudo apt-get:*)",
+      "Bash(convert -background none assets/images/onboarding_1.svg -resize 360x280 assets/images/onboarding_1.png)",
+      "Bash(convert -background none assets/images/onboarding_2.svg -resize 360x280 assets/images/onboarding_2.png)",
+      "Bash(convert -background none assets/images/onboarding_3.svg -resize 360x280 assets/images/onboarding_3.png)"
+    ]
+  }
+}

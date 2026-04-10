@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 500">
+
+  <!-- Background: deep green -->
+  <rect width="1024" height="500" fill="#0F4C3A"/>
+
+  <!-- Decorative geometric pattern — top right -->
+  <polygon points="1024,0 824,0 1024,200" fill="#1A6B52" opacity="0.4"/>
+  <polygon points="1024,0 924,0 1024,100" fill="#1A6B52" opacity="0.3"/>
+
+  <!-- Decorative pattern — bottom left -->
+  <polygon points="0,500 200,500 0,300" fill="#1A6B52" opacity="0.3"/>
+
+  <!-- Large crescent (left side) -->
+  <circle cx="220" cy="250" r="160" fill="#C9A84C" opacity="0.15"/>
+  <circle cx="220" cy="250" r="140" fill="#C9A84C" opacity="0.9"/>
+  <circle cx="270" cy="220" r="120" fill="#0F4C3A"/>
+
+  <!-- Star near crescent -->
+  <polygon
+    points="370,100 382,136 420,136 390,158 402,194 370,172 338,194 350,158 320,136 358,136"
+    fill="#C9A84C"/>
+
+  <!-- App name: SALAH (center) -->
+  <text x="560" y="220"
+    font-family="Georgia, serif"
+    font-size="96"
+    font-weight="700"
+    fill="#FFFFFF"
+    text-anchor="middle"
+    letter-spacing="12">SALAH</text>
+
+  <!-- Arabic name -->
+  <text x="560" y="290"
+    font-family="serif"
+    font-size="48"
+    fill="#C9A84C"
+    text-anchor="middle"
+    opacity="0.9">صلاة</text>
+
+  <!-- Tagline -->
+  <text x="560" y="360"
+    font-family="Arial, sans-serif"
+    font-size="22"
+    fill="#9ECFBA"
+    text-anchor="middle"
+    letter-spacing="3">PRAYER TIMES · QURAN · QIBLA</text>
+
+  <!-- Bottom divider line -->
+  <line x1="360" y1="390" x2="760" y2="390"
+    stroke="#C9A84C" stroke-width="1" opacity="0.4"/>
+
+  <!-- Star decorations -->
+  <circle cx="120" cy="80" r="3" fill="#C9A84C" opacity="0.5"/>
+  <circle cx="80" cy="140" r="2" fill="#FFFFFF" opacity="0.3"/>
+  <circle cx="900" cy="400" r="3" fill="#C9A84C" opacity="0.5"/>
+  <circle cx="960" cy="340" r="2" fill="#FFFFFF" opacity="0.4"/>
+  <circle cx="840" cy="440" r="2" fill="#C9A84C" opacity="0.3"/>
+
+</svg>

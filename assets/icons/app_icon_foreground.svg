@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <!-- No background rect — transparent -->
+  <!-- Crescent moon outer circle -->
+  <circle cx="460" cy="480" r="230" fill="#C9A84C"/>
+  <!-- Inner circle that cuts the crescent -->
+  <circle cx="560" cy="440" r="200" fill="#0F4C3A"/>
+  <!-- Five-pointed star -->
+  <polygon
+    points="720,185 742,245 806,245 756,280 775,342 720,308 665,342 684,280 634,245 698,245"
+    fill="#C9A84C"/>
+</svg>
