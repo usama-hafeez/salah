@@ -10,6 +10,10 @@ class PurchaseService {
 
   static final _iap = InAppPurchase.instance;
 
+  /// Called whenever Pro status changes (purchased or restored).
+  /// Wire this to PurchaseProvider.refresh() after initialization.
+  static void Function()? onProStatusChanged;
+
   static Future<void> init() async {
     final available = await _iap.isAvailable();
     if (!available) return;
@@ -28,6 +32,7 @@ class PurchaseService {
           purchase.status == PurchaseStatus.restored) {
         await StorageService.setIsPro(true);
         await _iap.completePurchase(purchase);
+        onProStatusChanged?.call();
       }
       if (purchase.status == PurchaseStatus.error) {
         await _iap.completePurchase(purchase);
