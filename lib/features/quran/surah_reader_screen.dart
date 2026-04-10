@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../providers/quran_provider.dart';
 import '../../providers/theme_provider.dart';
 import '../../core/constants/app_constants.dart';
+import '../../core/services/ad_service.dart';
 import '../../models/surah_model.dart';
 import '../../models/verse_model.dart';
 import '../../shared/loading_widget.dart';
@@ -154,6 +155,7 @@ class _AyahCardState extends State<_AyahCard> {
 
   Future<void> _toggleBookmark() async {
     final provider = context.read<QuranProvider>();
+    final wasBookmarked = _bookmarked;
     if (_bookmarked) {
       await provider.removeBookmark(widget.surahId, widget.ayah.ayahNumber);
     } else {
@@ -161,6 +163,8 @@ class _AyahCardState extends State<_AyahCard> {
     }
     if (!mounted) return;
     setState(() => _bookmarked = !_bookmarked);
+    // Show interstitial after adding a bookmark (not on removal) — max 1 per 10 min
+    if (!wasBookmarked) AdService.showInterstitial();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(_bookmarked ? 'Bookmark added' : 'Bookmark removed'),

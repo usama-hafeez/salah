@@ -7,6 +7,7 @@ import 'package:vibration/vibration.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/services/storage_service.dart';
 import '../../providers/theme_provider.dart';
+import '../../shared/ad_banner_widget.dart';
 
 class TasbihScreen extends StatefulWidget {
   const TasbihScreen({super.key});
@@ -219,6 +220,7 @@ class _TasbihScreenState extends State<TasbihScreen>
                       ),
               ),
             ),
+            if (!StorageService.isPro) const AdBannerWidget(),
           ],
         ),
       ),

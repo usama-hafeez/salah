@@ -4,7 +4,9 @@ import 'package:provider/provider.dart';
 
 import '../../core/utils/date_utils.dart';
 import '../../core/constants/app_colors.dart';
+import '../../core/services/storage_service.dart';
 import '../../providers/theme_provider.dart';
+import '../../shared/ad_banner_widget.dart';
 
 class HijriCalendarScreen extends StatefulWidget {
   const HijriCalendarScreen({super.key});
@@ -78,29 +80,36 @@ class _HijriCalendarScreenState extends State<HijriCalendarScreen> {
         backgroundColor: theme.primary,
         elevation: 0,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            _MonthHeader(
-              month: _displayMonth,
-              theme: theme,
-              onPrev: _prevMonth,
-              onNext: _nextMonth,
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  _MonthHeader(
+                    month: _displayMonth,
+                    theme: theme,
+                    onPrev: _prevMonth,
+                    onNext: _nextMonth,
+                  ),
+                  _WeekdayRow(theme: theme),
+                  _CalendarGrid(
+                    displayMonth: _displayMonth,
+                    daysInMonth: _daysInMonth,
+                    offsetDays: _firstDayOffset,
+                    today: _today,
+                    theme: theme,
+                    eventChecker: _eventForHijriDate,
+                  ),
+                  if (eventsThisMonth.isNotEmpty)
+                    _EventList(events: eventsThisMonth, theme: theme),
+                  const SizedBox(height: 16),
+                ],
+              ),
             ),
-            _WeekdayRow(theme: theme),
-            _CalendarGrid(
-              displayMonth: _displayMonth,
-              daysInMonth: _daysInMonth,
-              offsetDays: _firstDayOffset,
-              today: _today,
-              theme: theme,
-              eventChecker: _eventForHijriDate,
-            ),
-            if (eventsThisMonth.isNotEmpty)
-              _EventList(events: eventsThisMonth, theme: theme),
-            const SizedBox(height: 16),
-          ],
-        ),
+          ),
+          if (!StorageService.isPro) const AdBannerWidget(),
+        ],
       ),
     );
   }

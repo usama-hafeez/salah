@@ -16,6 +16,7 @@ void main() async {
   await StorageService.init();
   await NotificationService.init();
   await AdService.init();
+  await AdService.preloadInterstitial();
   await PurchaseService.init();
 
   runApp(
