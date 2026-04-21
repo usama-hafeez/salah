@@ -30,9 +30,9 @@ class StorageService {
   static String get theme => prefs.getString('theme') ?? 'midnight';
   static Future<void> setTheme(String v) => prefs.setString('theme', v);
 
-  // Pro status
-  static bool get isPro => prefs.getBool('is_pro') ?? false;
-  static Future<void> setIsPro(bool v) => prefs.setBool('is_pro', v);
+  // Pro status — all features unlocked for everyone
+  static bool get isPro => true;
+  static Future<void> setIsPro(bool v) async {}
 
   // Notification toggles per prayer (all enabled by default)
   static bool notificationEnabled(String prayer) =>

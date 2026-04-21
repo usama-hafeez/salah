@@ -13,7 +13,6 @@ class ThemeProvider extends ChangeNotifier {
   }
 
   Future<void> setTheme(AppThemeData theme) async {
-    if (theme.isPro && !StorageService.isPro) return;
     _current = theme;
     await StorageService.setTheme(theme.id);
     notifyListeners();

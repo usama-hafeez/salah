@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/constants/app_colors.dart';
-import '../../core/services/storage_service.dart';
 import '../../providers/theme_provider.dart';
-import '../premium/paywall_screen.dart';
 
 class ThemePickerScreen extends StatelessWidget {
   const ThemePickerScreen({super.key});
@@ -13,7 +11,6 @@ class ThemePickerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeProvider = context.watch<ThemeProvider>();
     final current = themeProvider.current;
-    final isPro = StorageService.isPro;
 
     return Scaffold(
       backgroundColor: current.background,
@@ -38,29 +35,17 @@ class ThemePickerScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 final theme = AppThemes.all[index];
                 final isSelected = theme.id == current.id;
-                final isLocked = theme.isPro && !isPro;
 
                 return _ThemeCard(
                   theme: theme,
                   isSelected: isSelected,
-                  isLocked: isLocked,
+                  isLocked: false,
                   activeAccent: current.accent,
-                  onTap: () {
-                    if (isLocked) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => const PaywallScreen()),
-                      );
-                      return;
-                    }
-                    context.read<ThemeProvider>().setTheme(theme);
-                  },
+                  onTap: () => context.read<ThemeProvider>().setTheme(theme),
                 );
               },
             ),
           ),
-          if (!isPro) _UpgradeBanner(theme: current),
         ],
       ),
     );
@@ -110,23 +95,6 @@ class _ThemeCard extends StatelessWidget {
             children: [
               // Preview panel
               _ThemePreview(theme: theme),
-              // Lock overlay
-              if (isLocked)
-                Positioned.fill(
-                  child: Container(
-                    color: Colors.black.withAlpha(100),
-                    alignment: Alignment.center,
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Colors.black.withAlpha(140),
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Icon(Icons.lock_rounded,
-                          color: Colors.white, size: 22),
-                    ),
-                  ),
-                ),
               // Selected checkmark
               if (isSelected)
                 Positioned(
@@ -140,29 +108,6 @@ class _ThemeCard extends StatelessWidget {
                     ),
                     child: const Icon(Icons.check_rounded,
                         color: Colors.black87, size: 14),
-                  ),
-                ),
-              // Pro badge
-              if (theme.isPro && !isSelected)
-                Positioned(
-                  top: 8,
-                  right: 8,
-                  child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                    decoration: BoxDecoration(
-                      color: Colors.amber.shade700,
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: const Text(
-                      'PRO',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 9,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 0.5,
-                      ),
-                    ),
                   ),
                 ),
             ],

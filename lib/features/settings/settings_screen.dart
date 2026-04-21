@@ -5,12 +5,8 @@ import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_constants.dart';
 import '../../core/constants/app_strings.dart';
-import '../../core/services/purchase_service.dart';
-import '../../core/services/storage_service.dart';
-import '../../providers/purchase_provider.dart';
 import '../../providers/settings_provider.dart';
 import '../../providers/theme_provider.dart';
-import '../premium/paywall_screen.dart';
 import '../qaza/qaza_tracker_screen.dart';
 import '../ramadan/ramadan_screen.dart';
 import '../tasbih/tasbih_screen.dart';
@@ -24,7 +20,6 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.watch<ThemeProvider>().current;
     final settings = context.watch<SettingsProvider>();
-    final isPro = context.watch<PurchaseProvider>().isPro;
 
     return Scaffold(
       backgroundColor: theme.background,
@@ -127,36 +122,6 @@ class SettingsScreen extends StatelessWidget {
                 MaterialPageRoute(builder: (_) => const ThemePickerScreen())),
           ),
 
-          // ── Pro status ────────────────────────────────────────────────────
-          _SectionHeader(label: 'Pro', theme: theme),
-          if (isPro)
-            _ProActiveTile(theme: theme)
-          else
-            _NavTile(
-              icon: Icons.star_outline_rounded,
-              title: AppStrings.get('upgrade_pro'),
-              subtitle: 'Remove ads, unlock themes & Qibla compass',
-              theme: theme,
-              onTap: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (_) => const PaywallScreen())),
-            ),
-          _TextButtonTile(
-            label: AppStrings.get('restore_purchase'),
-            theme: theme,
-            onTap: () async {
-              try {
-                await PurchaseService.restorePurchases();
-                if (context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Purchases restored'),
-                      behavior: SnackBarBehavior.floating,
-                    ),
-                  );
-                }
-              } catch (_) {}
-            },
-          ),
 
           // ── About ─────────────────────────────────────────────────────────
           _SectionHeader(label: AppStrings.get('about_section'), theme: theme),
