@@ -127,7 +127,7 @@ class _AppHeader extends StatelessWidget {
               ),
               const SizedBox(width: 10),
               Text(
-                'SALAH',
+                'Salah',
                 style: TextStyle(
                   color: t.accent,
                   fontSize: 20,
