@@ -2,20 +2,19 @@
   <!-- Background: rounded square, deep green -->
   <rect width="1024" height="1024" rx="230" fill="#0F4C3A"/>
 
-  <!-- Subtle inner glow ring (decorative) -->
-  <rect x="40" y="40" width="944" height="944" rx="200"
-    fill="none" stroke="#1A6B52" stroke-width="4" opacity="0.6"/>
-
   <!-- Crescent moon: constructed as two overlapping circles -->
   <!-- Outer circle of crescent -->
-  <circle cx="460" cy="480" r="230" fill="#C9A84C"/>
+  <circle cx="500" cy="480" r="230" fill="#C9A84C"/>
   <!-- Inner circle that cuts the crescent (same color as background) -->
   <circle cx="560" cy="440" r="200" fill="#0F4C3A"/>
 
-  <!-- Five-pointed star (top right of crescent) -->
-  <!-- Star center at approximately (720, 260), size 90 -->
+  <!--
+    Five-pointed star — centre (770, 220), outer R=75, inner r=30.
+    Shifted up-right so it sits clear of the inner-circle boundary arc
+    (nearest arc point is ~104 px away from the star centre).
+  -->
   <polygon
-    points="720,185 742,245 806,245 756,280 775,342 720,308 665,342 684,280 634,245 698,245"
+    points="770,145 788,196 841,197 799,229 814,281 770,250 726,281 742,229 699,197 752,196"
     fill="#C9A84C"/>
 
   <!-- App name text "Salah" in Arabic: صلاة -->

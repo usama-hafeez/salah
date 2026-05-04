@@ -9,6 +9,7 @@ import '../premium/paywall_screen.dart';
 import 'surah_reader_screen.dart';
 import 'quran_bookmarks_screen.dart';
 import 'verse_of_day_screen.dart';
+import '../quran_recitation/screens/recitation_screen.dart';
 
 class QuranHomeScreen extends StatefulWidget {
   const QuranHomeScreen({super.key});
@@ -125,6 +126,21 @@ class _QuranHeader extends StatelessWidget {
                       builder: (_) => const VerseOfDayScreen()),
                 ),
               ),
+              const SizedBox(width: 8),
+              _HeaderIconButton(
+                icon: Icons.menu_book_outlined,
+                theme: theme,
+                tooltip: 'Recite Mushaf',
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const RecitationScreen(
+                      surahNumber: 1,
+                      startAyah: 1,
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ],
@@ -137,21 +153,29 @@ class _HeaderIconButton extends StatelessWidget {
   final IconData icon;
   final dynamic theme;
   final VoidCallback onTap;
+  final String? tooltip;
 
-  const _HeaderIconButton(
-      {required this.icon, required this.theme, required this.onTap});
+  const _HeaderIconButton({
+    required this.icon,
+    required this.theme,
+    required this.onTap,
+    this.tooltip,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: Colors.white.withAlpha(20),
-          borderRadius: BorderRadius.circular(10),
+    return Tooltip(
+      message: tooltip ?? '',
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: Colors.white.withAlpha(20),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Icon(icon, color: theme.accent, size: 22),
         ),
-        child: Icon(icon, color: theme.accent, size: 22),
       ),
     );
   }

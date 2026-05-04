@@ -59,6 +59,10 @@ dependencies:
   # HTTP (for future features)
   http: ^1.2.1
 
+  # Quran Mushaf page rendering (QCF font, 604-page layout)
+  # Also exports getPageNumber, getSurahNameArabic, getJuzNumber, getVerse, getPageData, etc.
+  qcf_quran_lite: ^0.0.4
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

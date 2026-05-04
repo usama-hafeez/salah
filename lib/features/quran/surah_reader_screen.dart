@@ -8,6 +8,7 @@ import '../../core/services/ad_service.dart';
 import '../../models/surah_model.dart';
 import '../../models/verse_model.dart';
 import '../../shared/loading_widget.dart';
+import '../quran_recitation/screens/recitation_screen.dart';
 
 class SurahReaderScreen extends StatefulWidget {
   final SurahModel surah;
@@ -50,6 +51,19 @@ class _SurahReaderScreenState extends State<SurahReaderScreen> {
           ],
         ),
         actions: [
+          IconButton(
+            icon: Icon(Icons.menu_book_outlined, color: theme.accent, size: 22),
+            tooltip: 'Recite Mushaf',
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => RecitationScreen(
+                  surahNumber: widget.surah.id,
+                  startAyah: 1,
+                ),
+              ),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.only(right: 16),
             child: Text(

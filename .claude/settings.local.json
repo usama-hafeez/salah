@@ -10,7 +10,10 @@
       "Bash(flutter pub *)",
       "Bash(flutter doctor *)",
       "Read(//mnt/c/Users/**)",
-      "Read(//mnt/c/Users/usama096/AppData/Local/Android/**)"
+      "Read(//mnt/c/Users/usama096/AppData/Local/Android/**)",
+      "Bash(cat)",
+      "Read(//tmp/**)",
+      "WebFetch(domain:pub.dev)"
     ]
   }
 }

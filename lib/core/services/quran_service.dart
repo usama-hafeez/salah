@@ -134,4 +134,16 @@ class QuranService {
     );
     return result.isNotEmpty;
   }
+
+  static Future<VerseModel?> getSingleVerse(
+      int surahId, int ayahNumber) async {
+    final db = await database;
+    final result = await db.query(
+      'ayahs',
+      where: 'surah_id = ? AND ayah_number = ?',
+      whereArgs: [surahId, ayahNumber],
+    );
+    if (result.isEmpty) return null;
+    return VerseModel.fromMap(result.first);
+  }
 }
