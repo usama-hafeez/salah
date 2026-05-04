@@ -19,16 +19,18 @@ class ThemeProvider extends ChangeNotifier {
   }
 
   ThemeData get materialTheme => ThemeData(
-        primaryColor: _current.primary,
         scaffoldBackgroundColor: _current.background,
         colorScheme: ColorScheme.dark(
           primary: _current.primary,
+          onPrimary: _current.onPrimary,
           secondary: _current.accent,
+          onSecondary: _current.onPrimary,
           surface: _current.surface,
+          onSurface: _current.textPrimary,
         ),
         appBarTheme: AppBarTheme(
           backgroundColor: _current.primary,
-          foregroundColor: _current.textPrimary,
+          foregroundColor: _current.onPrimary,
           elevation: 0,
         ),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(

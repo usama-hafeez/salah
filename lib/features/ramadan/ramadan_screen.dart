@@ -209,8 +209,18 @@ class _RamadanScreenState extends State<RamadanScreen> {
       ),
       body: _loading
           ? Center(
-              child: CircularProgressIndicator(
-                  color: theme.accent, strokeWidth: 2))
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CircularProgressIndicator(color: theme.accent, strokeWidth: 3),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Loading Ramadan timetable…',
+                    style: TextStyle(color: theme.textSecondary, fontSize: 13),
+                  ),
+                ],
+              ),
+            )
           : ListView(
               children: [
                 _RamadanHeader(

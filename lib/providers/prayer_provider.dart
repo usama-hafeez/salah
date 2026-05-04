@@ -28,17 +28,16 @@ class PrayerProvider extends ChangeNotifier {
     try {
       _position = await LocationService.getCurrentPosition();
       _prayerTimes = PrayerService.getPrayerTimes(_position!);
-      // Update widget and notifications in parallel (both non-blocking on failure)
-      await Future.wait([
-        WidgetService.updateWidget(),
-        NotificationService.scheduleAllNotifications(),
-      ]);
     } catch (e) {
       _error = e.toString();
     }
 
     _loading = false;
     notifyListeners();
+
+    // Fire-and-forget — never let these block or corrupt the prayer time display
+    WidgetService.updateWidget().catchError((_) {});
+    NotificationService.scheduleAllNotifications().catchError((_) {});
   }
 
   Prayer? get nextPrayer => _prayerTimes?.nextPrayer();

@@ -72,7 +72,7 @@ class _NextPrayerCardState extends State<NextPrayerCard> {
         ],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
             AppStrings.get('next_prayer').toUpperCase(),
@@ -82,11 +82,12 @@ class _NextPrayerCardState extends State<NextPrayerCard> {
               letterSpacing: 2,
               fontWeight: FontWeight.w500,
             ),
+            textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: 10),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 nextPrayer,
@@ -96,7 +97,8 @@ class _NextPrayerCardState extends State<NextPrayerCard> {
                   fontWeight: FontWeight.w700,
                 ),
               ),
-              if (nextTime != null)
+              if (nextTime != null) ...[
+                const SizedBox(width: 12),
                 Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 10,
@@ -115,12 +117,14 @@ class _NextPrayerCardState extends State<NextPrayerCard> {
                     ),
                   ),
                 ),
+              ],
             ],
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 16),
           Text(
             _countdownText,
             style: AppTextStyles.countdown(theme.accent),
+            textAlign: TextAlign.center,
           ),
           const SizedBox(height: 4),
           Text(
@@ -130,6 +134,7 @@ class _NextPrayerCardState extends State<NextPrayerCard> {
               fontSize: 11,
               letterSpacing: 1.5,
             ),
+            textAlign: TextAlign.center,
           ),
         ],
       ),

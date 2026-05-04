@@ -1,5 +1,5 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 import 'prayer_service.dart';
@@ -9,12 +9,19 @@ import 'storage_service.dart';
 class NotificationService {
   static final _plugin = FlutterLocalNotificationsPlugin();
 
+  static const _tzChannel = MethodChannel('com.prayerapp.muslim/timezone');
+
   static Future<void> init() async {
     tz.initializeTimeZones();
 
-    // Set local timezone so notifications fire at correct local time
-    final timeZoneName = await FlutterTimezone.getLocalTimezone();
-    tz.setLocalLocation(tz.getLocation(timeZoneName));
+    // Get device IANA timezone directly from Android via MethodChannel
+    try {
+      final timeZoneName =
+          await _tzChannel.invokeMethod<String>('getLocalTimezone') ?? 'UTC';
+      tz.setLocalLocation(tz.getLocation(timeZoneName));
+    } catch (_) {
+      tz.setLocalLocation(tz.UTC);
+    }
 
     const androidSettings =
         AndroidInitializationSettings('@mipmap/ic_launcher');
@@ -22,11 +29,15 @@ class NotificationService {
 
     await _plugin.initialize(settings: settings);
 
-    // Request notification permission on Android 13+
     final androidPlugin = _plugin
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>();
+
+    // Request POST_NOTIFICATIONS permission (Android 13+)
     await androidPlugin?.requestNotificationsPermission();
+
+    // Request exact alarm permission (Android 12+) — needed for on-time Azaan
+    await androidPlugin?.requestExactAlarmsPermission();
   }
 
   /// Schedule Azaan notifications for today and tomorrow.
@@ -126,14 +137,29 @@ class NotificationService {
       enableVibration: true,
     );
 
-    await _plugin.zonedSchedule(
-      id: id,
-      title: prayerName,
-      body: 'Time for $prayerName prayer',
-      scheduledDate: tz.TZDateTime.from(scheduledTime, tz.local),
-      notificationDetails: NotificationDetails(android: androidDetails),
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-    );
+    final tzTime = tz.TZDateTime.from(scheduledTime, tz.local);
+    final details = NotificationDetails(android: androidDetails);
+
+    // Try exact scheduling first; fall back to inexact if permission denied
+    try {
+      await _plugin.zonedSchedule(
+        id: id,
+        title: prayerName,
+        body: 'Time for $prayerName prayer',
+        scheduledDate: tzTime,
+        notificationDetails: details,
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+      );
+    } catch (_) {
+      await _plugin.zonedSchedule(
+        id: id,
+        title: prayerName,
+        body: 'Time for $prayerName prayer',
+        scheduledDate: tzTime,
+        notificationDetails: details,
+        androidScheduleMode: AndroidScheduleMode.inexact,
+      );
+    }
   }
 
   static Future<void> _scheduleReminder({
@@ -153,14 +179,28 @@ class NotificationService {
       enableVibration: true,
     );
 
-    await _plugin.zonedSchedule(
-      id: id,
-      title: title,
-      body: body,
-      scheduledDate: tz.TZDateTime.from(scheduledTime, tz.local),
-      notificationDetails: NotificationDetails(android: androidDetails),
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-    );
+    final tzTime = tz.TZDateTime.from(scheduledTime, tz.local);
+    final details = NotificationDetails(android: androidDetails);
+
+    try {
+      await _plugin.zonedSchedule(
+        id: id,
+        title: title,
+        body: body,
+        scheduledDate: tzTime,
+        notificationDetails: details,
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+      );
+    } catch (_) {
+      await _plugin.zonedSchedule(
+        id: id,
+        title: title,
+        body: body,
+        scheduledDate: tzTime,
+        notificationDetails: details,
+        androidScheduleMode: AndroidScheduleMode.inexact,
+      );
+    }
   }
 
   static String _getSoundFile() {

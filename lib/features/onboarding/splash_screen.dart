@@ -62,6 +62,10 @@ class _SplashScreenState extends State<SplashScreen>
                     SvgPicture.asset(
                       'assets/images/splash_logo.svg',
                       width: 180,
+                      colorFilter: const ColorFilter.mode(
+                        Color(0xFFC9A84C),
+                        BlendMode.srcIn,
+                      ),
                     ),
                     const SizedBox(height: 24),
                     const Text(

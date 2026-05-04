@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import '../../providers/prayer_provider.dart';
 import '../../providers/theme_provider.dart';
+import '../../core/constants/app_assets.dart';
 import '../../core/services/storage_service.dart';
 import 'widgets/date_header_widget.dart';
 import 'widgets/next_prayer_card.dart';
@@ -12,6 +14,7 @@ import '../../shared/loading_widget.dart';
 import '../quran/quran_home_screen.dart';
 import '../qibla/qibla_screen.dart';
 import '../calendar/hijri_calendar_screen.dart';
+import '../settings/notification_settings_screen.dart';
 import '../settings/settings_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -110,24 +113,54 @@ class _AppHeader extends StatelessWidget {
     final t = context.watch<ThemeProvider>().current;
     return Container(
       color: t.primary,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            'SALAH',
-            style: TextStyle(
-              color: t.textPrimary,
-              fontSize: 20,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 4,
-            ),
+          Row(
+            children: [
+              SvgPicture.asset(
+                AppAssets.splashLogo,
+                height: 36,
+                width: 36,
+                colorFilter: ColorFilter.mode(t.accent, BlendMode.srcIn),
+              ),
+              const SizedBox(width: 10),
+              Text(
+                'SALAH',
+                style: TextStyle(
+                  color: t.accent,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 4,
+                ),
+              ),
+            ],
           ),
           Row(
             children: [
-              Icon(Icons.location_on_outlined, color: t.accent, size: 18),
+              IconButton(
+                icon: Icon(Icons.location_on_outlined, color: t.accent, size: 32),
+                tooltip: 'Location',
+                padding: const EdgeInsets.all(8),
+                constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
+                onPressed: () {
+                  context.read<PrayerProvider>().loadPrayerTimes();
+                },
+              ),
               const SizedBox(width: 4),
-              Icon(Icons.notifications_outlined, color: t.textPrimary.withAlpha(200), size: 20),
+              IconButton(
+                icon: Icon(Icons.notifications_outlined,
+                    color: t.accent.withAlpha(220), size: 32),
+                tooltip: 'Notifications',
+                padding: const EdgeInsets.all(8),
+                constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => const NotificationSettingsScreen()),
+                ),
+              ),
             ],
           ),
         ],

@@ -15,6 +15,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await StorageService.init();
   await NotificationService.init();
+  // Schedule notifications on startup so they survive app restarts/reboots
+  NotificationService.scheduleAllNotifications().catchError((_) {});
   await AdService.init();
   await AdService.preloadInterstitial();
   await PurchaseService.init();

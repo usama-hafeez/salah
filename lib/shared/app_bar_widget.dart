@@ -27,14 +27,14 @@ class ThemedAppBar extends StatelessWidget implements PreferredSizeWidget {
     final theme = context.watch<ThemeProvider>().current;
     return AppBar(
       backgroundColor: theme.primary,
-      foregroundColor: theme.textPrimary,
+      foregroundColor: theme.onPrimary,
       elevation: 0,
       centerTitle: centerTitle,
       leading: leading,
       title: Text(
         title,
         style: TextStyle(
-          color: theme.textPrimary,
+          color: theme.onPrimary,
           fontSize: 18,
           fontWeight: FontWeight.w600,
         ),
