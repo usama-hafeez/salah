@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:adhan/adhan.dart';
 import 'package:geolocator/geolocator.dart';
@@ -37,7 +38,8 @@ class PrayerProvider extends ChangeNotifier {
 
     // Fire-and-forget — never let these block or corrupt the prayer time display
     WidgetService.updateWidget().catchError((_) {});
-    NotificationService.scheduleAllNotifications().catchError((_) {});
+    NotificationService.scheduleAllNotifications()
+        .catchError((e) => debugPrint('Notification scheduling failed: $e'));
   }
 
   Prayer? get nextPrayer => _prayerTimes?.nextPrayer();

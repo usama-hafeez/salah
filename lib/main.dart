@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'core/services/storage_service.dart';
@@ -16,7 +17,8 @@ void main() async {
   await StorageService.init();
   await NotificationService.init();
   // Schedule notifications on startup so they survive app restarts/reboots
-  NotificationService.scheduleAllNotifications().catchError((_) {});
+  NotificationService.scheduleAllNotifications()
+      .catchError((e) => debugPrint('Notification scheduling failed: $e'));
   await AdService.init();
   await AdService.preloadInterstitial();
   await PurchaseService.init();
