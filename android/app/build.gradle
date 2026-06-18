@@ -24,7 +24,7 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.prayerapp.muslim"
-    compileSdk 36
+    compileSdk 37
     ndkVersion "28.2.13676358"
 
     compileOptions {
@@ -44,7 +44,7 @@ android {
     defaultConfig {
         applicationId "com.prayerapp.muslim"
         minSdkVersion flutter.minSdkVersion
-        targetSdk 36
+        targetSdk 37
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
