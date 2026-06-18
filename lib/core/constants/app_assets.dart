@@ -1,7 +1,6 @@
 class AppAssets {
   // Images
   static const String splashLogo = 'assets/images/splash_logo.svg';
-  static const String kaaba = 'assets/images/kaaba.svg';
   static const String compassNeedle = 'assets/images/compass_needle.svg';
 
   // Prayer icons (SVG)
