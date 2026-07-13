@@ -24,6 +24,19 @@ class _SurahReaderScreenState extends State<SurahReaderScreen> {
       widget.surah.id != 1 && widget.surah.id != 9;
 
   @override
+  void initState() {
+    super.initState();
+    // Never show ads while the Quran reader is open (Business Rule #1).
+    AdService.quranReadingActive = true;
+  }
+
+  @override
+  void dispose() {
+    AdService.quranReadingActive = false;
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = context.watch<ThemeProvider>().current;
     final provider = context.watch<QuranProvider>();
@@ -169,7 +182,6 @@ class _AyahCardState extends State<_AyahCard> {
 
   Future<void> _toggleBookmark() async {
     final provider = context.read<QuranProvider>();
-    final wasBookmarked = _bookmarked;
     if (_bookmarked) {
       await provider.removeBookmark(widget.surahId, widget.ayah.ayahNumber);
     } else {
@@ -177,8 +189,8 @@ class _AyahCardState extends State<_AyahCard> {
     }
     if (!mounted) return;
     setState(() => _bookmarked = !_bookmarked);
-    // Show interstitial after adding a bookmark (not on removal) — max 1 per 10 min
-    if (!wasBookmarked) AdService.showInterstitial();
+    // No interstitial here: the Quran reader is a strict no-ad zone
+    // (Business Rule #1 / Ad Placement table).
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(_bookmarked ? 'Bookmark added' : 'Bookmark removed'),

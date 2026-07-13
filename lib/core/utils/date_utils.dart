@@ -78,10 +78,15 @@ class AppDateUtils {
   }
 
   /// Formats DateTime as "h:mm AM/PM".
+  ///
+  /// `adhan` returns prayer times as UTC instants, so convert to the device's
+  /// local time before formatting (a no-op for DateTimes that are already
+  /// local, so this is safe to call on any DateTime).
   static String formatTime(DateTime time) {
-    final rawHour = time.hour;
+    final local = time.toLocal();
+    final rawHour = local.hour;
     final hour = rawHour == 0 ? 12 : (rawHour > 12 ? rawHour - 12 : rawHour);
-    final minute = time.minute.toString().padLeft(2, '0');
+    final minute = local.minute.toString().padLeft(2, '0');
     final ampm = rawHour >= 12 ? 'PM' : 'AM';
     return '$hour:$minute $ampm';
   }

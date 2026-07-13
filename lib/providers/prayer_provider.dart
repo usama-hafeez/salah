@@ -6,11 +6,17 @@ import '../core/services/prayer_service.dart';
 import '../core/services/location_service.dart';
 import '../core/services/notification_service.dart';
 import '../core/services/widget_service.dart';
+import '../core/services/ad_service.dart';
 import '../core/constants/app_assets.dart';
 import '../models/prayer_model.dart';
 import '../models/prayer_status.dart';
 
 class PrayerProvider extends ChangeNotifier {
+  PrayerProvider() {
+    // Let AdService suppress interstitials within 5 min of a prayer (Rule #2).
+    AdService.nextPrayerTimeProvider = () => nextPrayerTime;
+  }
+
   PrayerTimes? _prayerTimes;
   Position? _position;
   bool _loading = true;
@@ -41,6 +47,10 @@ class PrayerProvider extends ChangeNotifier {
     NotificationService.scheduleAllNotifications()
         .catchError((e) => debugPrint('Notification scheduling failed: $e'));
   }
+
+  /// True when prayer times were computed from the saved/default location
+  /// (GPS unavailable), so they may be approximate.
+  bool get usingApproximateLocation => LocationService.isUsingFallback;
 
   Prayer? get nextPrayer => _prayerTimes?.nextPrayer();
   Prayer? get currentPrayer => _prayerTimes?.currentPrayer();

@@ -30,9 +30,14 @@ class StorageService {
   static String get theme => prefs.getString('theme') ?? 'midnight';
   static Future<void> setTheme(String v) => prefs.setString('theme', v);
 
-  // Pro status — all features unlocked for everyone
+  // Pro status.
+  // TEMPORARY: all Pro features are unlocked for everyone (no gating, no ads).
+  // To re-enable the paywall/gating later, restore the real entitlement:
+  //     static bool get isPro => prefs.getBool('is_pro') ?? false;
+  // The purchase flow still persists the real value via setIsPro below, so no
+  // other changes are needed when flipping this back.
   static bool get isPro => true;
-  static Future<void> setIsPro(bool v) async {}
+  static Future<void> setIsPro(bool v) => prefs.setBool('is_pro', v);
 
   // Notification toggles per prayer (all enabled by default)
   static bool notificationEnabled(String prayer) =>

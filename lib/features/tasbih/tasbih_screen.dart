@@ -104,6 +104,8 @@ class _TasbihScreenState extends State<TasbihScreen>
       if (hasVibrator) Vibration.vibrate(duration: 30);
     } catch (_) {}
 
+    // The awaits above may complete after the user navigated away.
+    if (!mounted) return;
     setState(() => _counts[_currentDhikr]++);
     await _saveCount(_currentDhikr);
 

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'storage_service.dart';
 
@@ -9,6 +10,7 @@ class PurchaseService {
   static const proMonthlyId = 'pro_monthly';
 
   static final _iap = InAppPurchase.instance;
+  static StreamSubscription<List<PurchaseDetails>>? _subscription;
 
   /// Called whenever Pro status changes (purchased or restored).
   /// Wire this to PurchaseProvider.refresh() after initialization.
@@ -18,11 +20,23 @@ class PurchaseService {
     final available = await _iap.isAvailable();
     if (!available) return;
 
-    // Listen to purchase updates
-    _iap.purchaseStream.listen(_handlePurchaseUpdates);
+    // Cancel any previous subscription so a re-init (hot restart) doesn't
+    // leave duplicate listeners that double-process purchase events.
+    await _subscription?.cancel();
+    _subscription = _iap.purchaseStream.listen(
+      _handlePurchaseUpdates,
+      onDone: () => _subscription?.cancel(),
+      onError: (_) {},
+    );
 
     // Restore previous purchases on startup (Business Rule #10)
     await _iap.restorePurchases();
+  }
+
+  /// Cancel the purchase stream subscription. Call on app teardown.
+  static Future<void> dispose() async {
+    await _subscription?.cancel();
+    _subscription = null;
   }
 
   static void _handlePurchaseUpdates(

@@ -87,6 +87,8 @@ class _PrayerTimesTab extends StatelessWidget {
       child: Column(
         children: [
           _AppHeader(theme: theme),
+          if (!provider.loading && provider.usingApproximateLocation)
+            _ApproxLocationBanner(theme: theme),
           Expanded(
             child: provider.loading
                 ? const LoadingWidget()
@@ -98,6 +100,36 @@ class _PrayerTimesTab extends StatelessWidget {
                     : const _PrayerContent(),
           ),
           if (!isPro) const AdBannerWidget(),
+        ],
+      ),
+    );
+  }
+}
+
+class _ApproxLocationBanner extends StatelessWidget {
+  final dynamic theme;
+  const _ApproxLocationBanner({required this.theme});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: theme.accent.withAlpha(30),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Row(
+        children: [
+          Icon(Icons.location_off_outlined, size: 16, color: theme.accent),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              'Using approximate location. Enable location for accurate times.',
+              style: TextStyle(color: theme.textSecondary, fontSize: 12),
+            ),
+          ),
         ],
       ),
     );

@@ -50,6 +50,7 @@ class QuranProvider extends ChangeNotifier {
 
   Future<void> openSurah(SurahModel surah) async {
     _currentSurah = surah;
+    _ayahs = []; // clear previous surah's verses so they can't flash through
     _loadingAyahs = true;
     _error = null;
     notifyListeners();

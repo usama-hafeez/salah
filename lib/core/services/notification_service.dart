@@ -23,8 +23,10 @@ class NotificationService {
       tz.setLocalLocation(tz.UTC);
     }
 
+    // White silhouette status-bar icon (not the full-color launcher, which
+    // would render as a solid white square on Android 5+).
     const androidSettings =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
+        AndroidInitializationSettings('@drawable/ic_stat_azaan');
     const settings = InitializationSettings(android: androidSettings);
 
     await _plugin.initialize(settings: settings);
@@ -132,6 +134,7 @@ class NotificationService {
       channelDescription: 'Azaan notification at prayer time',
       importance: Importance.max,
       priority: Priority.high,
+      icon: '@drawable/ic_stat_azaan',
       sound: RawResourceAndroidNotificationSound(soundFile),
       playSound: true,
       enableVibration: true,
@@ -176,6 +179,7 @@ class NotificationService {
       channelDescription: 'Prayer reminders and alerts',
       importance: Importance.high,
       priority: Priority.high,
+      icon: '@drawable/ic_stat_azaan',
       enableVibration: true,
     );
 

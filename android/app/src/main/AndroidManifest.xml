@@ -8,6 +8,10 @@
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <!-- Exact alarms for on-time Azaan. USE_EXACT_ALARM is auto-granted for
+         alarm/reminder-class apps (requires a Play Console declaration);
+         SCHEDULE_EXACT_ALARM is the fallback for pre-33 / user-granted case. -->
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>

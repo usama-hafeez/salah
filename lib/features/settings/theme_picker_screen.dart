@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/constants/app_colors.dart';
+import '../../providers/purchase_provider.dart';
 import '../../providers/theme_provider.dart';
+import '../premium/paywall_screen.dart';
 
 class ThemePickerScreen extends StatelessWidget {
   const ThemePickerScreen({super.key});
@@ -11,6 +13,7 @@ class ThemePickerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeProvider = context.watch<ThemeProvider>();
     final current = themeProvider.current;
+    final isPro = context.watch<PurchaseProvider>().isPro;
 
     return Scaffold(
       backgroundColor: current.background,
@@ -35,13 +38,24 @@ class ThemePickerScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 final theme = AppThemes.all[index];
                 final isSelected = theme.id == current.id;
+                final isLocked = theme.isPro && !isPro;
 
                 return _ThemeCard(
                   theme: theme,
                   isSelected: isSelected,
-                  isLocked: false,
+                  isLocked: isLocked,
                   activeAccent: current.accent,
-                  onTap: () => context.read<ThemeProvider>().setTheme(theme),
+                  onTap: () {
+                    if (isLocked) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => const PaywallScreen()),
+                      );
+                    } else {
+                      context.read<ThemeProvider>().setTheme(theme);
+                    }
+                  },
                 );
               },
             ),

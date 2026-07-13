@@ -2,6 +2,11 @@ import 'package:geolocator/geolocator.dart';
 import 'storage_service.dart';
 
 class LocationService {
+  /// True when the last [getCurrentPosition] call returned the saved/default
+  /// location instead of a live GPS fix (permission denied, service off, or
+  /// timeout). The UI can use this to warn that prayer times are approximate.
+  static bool isUsingFallback = false;
+
   /// Returns current GPS position.
   /// Falls back to last saved location if permission denied or unavailable.
   static Future<Position> getCurrentPosition() async {
@@ -29,6 +34,7 @@ class LocationService {
         ),
       );
       await StorageService.setLastLocation(pos.latitude, pos.longitude);
+      isUsingFallback = false;
       return pos;
     } catch (_) {
       return _fallback();
@@ -36,6 +42,7 @@ class LocationService {
   }
 
   static Position _fallback() {
+    isUsingFallback = true;
     return Position(
       latitude: StorageService.lastLat,
       longitude: StorageService.lastLng,

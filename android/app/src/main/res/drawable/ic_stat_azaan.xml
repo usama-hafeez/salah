@@ -1,0 +1,16 @@
+<!-- Status-bar notification icon: white crescent silhouette on transparent
+     background, tinted by the system. Replaces the full-color launcher icon
+     which renders as a solid white square on Android 5+. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:fillType="evenOdd"
+        android:pathData="M12,2 C6.48,2 2,6.48 2,12 C2,17.52 6.48,22 12,22 C14.9,22 17.51,20.76 19.33,18.79 C18.4,19.13 17.39,19.32 16.33,19.32 C11.55,19.32 7.67,15.44 7.67,10.66 C7.67,6.98 9.97,3.84 13.21,2.6 C12.82,2.54 12.42,2.5 12,2 Z" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M18.5,6.5 L19.28,8.22 L21,9 L19.28,9.78 L18.5,11.5 L17.72,9.78 L16,9 L17.72,8.22 Z" />
+</vector>

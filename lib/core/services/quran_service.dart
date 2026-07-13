@@ -10,6 +10,10 @@ class QuranService {
   static Database? _db;
   static Database? _userDb;
 
+  /// Bump this whenever the bundled `assets/db/quran.db` changes so existing
+  /// installs re-copy the new database instead of keeping the stale one.
+  static const _dbAssetVersion = 1;
+
   static Future<Database> get database async {
     if (_db != null) return _db!;
     _db = await _initDB();
@@ -19,13 +23,20 @@ class QuranService {
   static Future<Database> _initDB() async {
     final dir = await getApplicationDocumentsDirectory();
     final path = join(dir.path, 'quran.db');
+    final versionFile = File(join(dir.path, 'quran.db.version'));
 
     final exists = await File(path).exists();
-    if (!exists) {
-      // Copy bundled DB from assets to writable location on first run
+    var installedVersion = 0;
+    if (await versionFile.exists()) {
+      installedVersion = int.tryParse(await versionFile.readAsString()) ?? 0;
+    }
+
+    // Copy bundled DB on first run, or re-copy when the bundled version changed.
+    if (!exists || installedVersion != _dbAssetVersion) {
       final data = await rootBundle.load('assets/db/quran.db');
       final bytes = data.buffer.asUint8List();
       await File(path).writeAsBytes(bytes, flush: true);
+      await versionFile.writeAsString('$_dbAssetVersion', flush: true);
     }
 
     return openDatabase(path, readOnly: true);
@@ -68,10 +79,10 @@ class QuranService {
 
   static Future<VerseModel> getVerseOfDay() async {
     final db = await database;
-    final dayOfYear = DateTime.now()
-            .difference(DateTime(DateTime.now().year, 1, 1))
-            .inDays +
-        1;
+    final now = DateTime.now();
+    final rawDayOfYear = now.difference(DateTime(now.year, 1, 1)).inDays + 1;
+    // Clamp Dec 31 of a leap year (366) to 365 so it maps to a real verse.
+    final dayOfYear = rawDayOfYear > 365 ? 365 : rawDayOfYear;
     final result = await db.query(
       'daily_verses',
       where: 'day_of_year = ?',

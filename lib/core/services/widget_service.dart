@@ -14,10 +14,20 @@ class WidgetService {
     try {
       final position = await LocationService.getCurrentPosition();
       final times = PrayerService.getPrayerTimes(position);
-      final next = times.nextPrayer();
-      final nextTime = times.timeForPrayer(next);
 
-      if (nextTime == null) return;
+      var next = times.nextPrayer();
+      DateTime? nextTime = times.timeForPrayer(next);
+
+      // After Isha, nextPrayer() returns none — roll over to tomorrow's Fajr
+      // so the widget never shows stale data through the night.
+      if (next == Prayer.none || nextTime == null) {
+        final tomorrow = PrayerService.getPrayerTimesForDate(
+          position,
+          DateTime.now().add(const Duration(days: 1)),
+        );
+        next = Prayer.fajr;
+        nextTime = tomorrow.fajr;
+      }
 
       final countdown = nextTime.difference(DateTime.now());
       final hours = countdown.inHours;
@@ -58,13 +68,15 @@ class WidgetService {
   }
 
   static String _formatTime(DateTime time) {
-    final hour = time.hour > 12
-        ? time.hour - 12
-        : time.hour == 0
+    // adhan returns UTC instants — format in device local time.
+    final local = time.toLocal();
+    final hour = local.hour > 12
+        ? local.hour - 12
+        : local.hour == 0
             ? 12
-            : time.hour;
-    final minute = time.minute.toString().padLeft(2, '0');
-    final ampm = time.hour >= 12 ? 'PM' : 'AM';
+            : local.hour;
+    final minute = local.minute.toString().padLeft(2, '0');
+    final ampm = local.hour >= 12 ? 'PM' : 'AM';
     return '$hour:$minute $ampm';
   }
 }

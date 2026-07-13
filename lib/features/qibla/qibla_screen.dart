@@ -8,7 +8,6 @@ import 'package:provider/provider.dart';
 import '../../core/constants/app_assets.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_constants.dart';
-import '../../core/services/ad_service.dart';
 import '../../core/services/storage_service.dart';
 import '../../providers/theme_provider.dart';
 import '../../shared/premium_lock_widget.dart';
@@ -28,10 +27,9 @@ class _QiblaScreenState extends State<QiblaScreen> {
   void initState() {
     super.initState();
     _computeQiblaAngle();
-    // Show interstitial for free users when Qibla screen opens (Business Rule §12.3)
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      AdService.showInterstitial();
-    });
+    // Note: no interstitial here. Qibla is a Pro-gated screen (Business Rule #3),
+    // so free users see the paywall and Pro users are ad-free — an interstitial
+    // would only ever misfire over the paywall.
   }
 
   void _computeQiblaAngle() {
