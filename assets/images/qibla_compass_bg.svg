@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320">
+  <!-- Outer ring -->
+  <circle cx="160" cy="160" r="148" fill="none" stroke="#1A6B52" stroke-width="1" opacity="0.4"/>
+  <circle cx="160" cy="160" r="130" fill="none" stroke="#1A6B52" stroke-width="0.5" opacity="0.3"/>
+  <circle cx="160" cy="160" r="80" fill="none" stroke="#C9A84C" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- Cardinal direction ticks (N, E, S, W) -->
+  <line x1="160" y1="14" x2="160" y2="30" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+  <line x1="160" y1="290" x2="160" y2="306" stroke="#1A6B52" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="14" y1="160" x2="30" y2="160" stroke="#1A6B52" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="290" y1="160" x2="306" y2="160" stroke="#1A6B52" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- 8 minor ticks -->
+  <line x1="261" y1="59" x2="252" y2="68" stroke="#1A6B52" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+  <line x1="261" y1="261" x2="252" y2="252" stroke="#1A6B52" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+  <line x1="59" y1="261" x2="68" y2="252" stroke="#1A6B52" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+  <line x1="59" y1="59" x2="68" y2="68" stroke="#1A6B52" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+
+  <!-- Cardinal labels -->
+  <text x="160" y="10" font-family="Arial" font-size="12" fill="#C9A84C"
+    text-anchor="middle" font-weight="700">N</text>
+  <text x="160" y="318" font-family="Arial" font-size="12" fill="#9E9E9E"
+    text-anchor="middle">S</text>
+  <text x="4" y="164" font-family="Arial" font-size="12" fill="#9E9E9E"
+    text-anchor="start">W</text>
+  <text x="316" y="164" font-family="Arial" font-size="12" fill="#9E9E9E"
+    text-anchor="end">E</text>
+
+  <!-- Center dot -->
+  <circle cx="160" cy="160" r="6" fill="#C9A84C" opacity="0.8"/>
+  <circle cx="160" cy="160" r="3" fill="#FFFFFF"/>
+</svg>

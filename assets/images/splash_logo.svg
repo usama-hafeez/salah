@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+
+  <!--
+    Crescent via mask: the outer circle is clipped by the inner circle,
+    so the inner circle can NEVER protrude outside the outer circle bounds.
+    This eliminates the stray filled region that appeared above the star
+    when using the even-odd fill-rule technique.
+  -->
+  <defs>
+    <mask id="crescent-mask">
+      <circle cx="40" cy="50" r="32" fill="white"/>
+      <circle cx="52" cy="42" r="26" fill="black"/>
+    </mask>
+  </defs>
+  <circle cx="40" cy="50" r="32" fill="#C9A84C" mask="url(#crescent-mask)"/>
+
+  <!--
+    Five-pointed star — centre moved to (68, 24), outer R=14, inner r=5.5.
+    Positioned upper-right, clear of the crescent inner-circle boundary.
+  -->
+  <polygon
+    fill="#C9A84C"
+    points="68,10 71.2,19.5 81.3,19.7 73.2,25.7 76.2,35.3 68,29.5 59.8,35.3 62.8,25.7 54.7,19.7 64.8,19.5"/>
+
+</svg>

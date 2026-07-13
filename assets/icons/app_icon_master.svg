@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <!-- Background: rounded square, deep green -->
+  <rect width="1024" height="1024" rx="230" fill="#0F4C3A"/>
+
+  <!-- Crescent moon: constructed as two overlapping circles -->
+  <!-- Outer circle of crescent -->
+  <circle cx="500" cy="480" r="230" fill="#C9A84C"/>
+  <!-- Inner circle that cuts the crescent (same color as background) -->
+  <circle cx="560" cy="440" r="200" fill="#0F4C3A"/>
+
+  <!--
+    Five-pointed star — centre (770, 220), outer R=75, inner r=30.
+    Shifted up-right so it sits clear of the inner-circle boundary arc
+    (nearest arc point is ~104 px away from the star centre).
+  -->
+  <polygon
+    points="770,145 788,196 841,197 799,229 814,281 770,250 726,281 742,229 699,197 752,196"
+    fill="#C9A84C"/>
+
+  <!-- App name text "Salah" in Arabic: صلاة -->
+  <!-- Centered below the crescent -->
+  <text
+    x="512" y="820"
+    font-family="serif"
+    font-size="120"
+    font-weight="500"
+    fill="#C9A84C"
+    text-anchor="middle"
+    dominant-baseline="middle">صلاة</text>
+
+  <!-- Thin gold separator line above text -->
+  <line x1="312" y1="730" x2="712" y2="730"
+    stroke="#C9A84C" stroke-width="3" opacity="0.4"/>
+</svg>

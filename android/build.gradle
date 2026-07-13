@@ -1,0 +1,32 @@
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.buildDir = "../build"
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    // Some plugins (e.g. home_widget 0.9.1) hardcode an older compileSdk than
+    // the app, but their transitive deps (androidx.glance) require compiling
+    // against API 37+. Force every Android subproject up to the app's
+    // compileSdk so the build links, without editing the pub cache. This hook
+    // is registered before evaluationDependsOn so it lands before each
+    // subproject is evaluated.
+    afterEvaluate { project ->
+        if (project.plugins.hasPlugin("com.android.library")
+                || project.plugins.hasPlugin("com.android.application")) {
+            project.android {
+                compileSdk 37
+            }
+        }
+    }
+    project.evaluationDependsOn(":app")
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}

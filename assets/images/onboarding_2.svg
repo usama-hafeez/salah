@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 280">
+
+  <!-- Background -->
+  <rect width="360" height="280" fill="#0a2d20"/>
+
+  <!-- Decorative geometric pattern (top corners) -->
+  <polygon points="0,0 80,0 0,80" fill="#1A6B52" opacity="0.4"/>
+  <polygon points="360,0 280,0 360,80" fill="#1A6B52" opacity="0.4"/>
+
+  <!-- Open book base -->
+  <!-- Left page -->
+  <rect x="40" y="70" width="130" height="160" rx="4" fill="#F5F0E8"/>
+  <!-- Right page -->
+  <rect x="190" y="70" width="130" height="160" rx="4" fill="#FAFAF8"/>
+  <!-- Spine shadow -->
+  <rect x="168" y="70" width="24" height="160" rx="2" fill="#C9A84C" opacity="0.3"/>
+  <!-- Spine line -->
+  <line x1="180" y1="70" x2="180" y2="230" stroke="#C9A84C" stroke-width="2" opacity="0.7"/>
+
+  <!-- Left page: Arabic text lines (simulated) -->
+  <text x="155" y="102" font-family="serif" font-size="13" fill="#1A1A1A"
+    text-anchor="end" direction="rtl">بِسْمِ اللَّهِ</text>
+  <rect x="55" y="110" width="95" height="2" rx="1" fill="#ccbda0"/>
+  <rect x="55" y="122" width="80" height="2" rx="1" fill="#ccbda0"/>
+  <rect x="55" y="134" width="95" height="2" rx="1" fill="#ccbda0"/>
+  <rect x="55" y="146" width="70" height="2" rx="1" fill="#ccbda0"/>
+  <rect x="55" y="158" width="95" height="2" rx="1" fill="#ccbda0"/>
+  <rect x="55" y="170" width="85" height="2" rx="1" fill="#ccbda0"/>
+  <rect x="55" y="182" width="95" height="2" rx="1" fill="#ccbda0"/>
+  <rect x="55" y="194" width="60" height="2" rx="1" fill="#ccbda0"/>
+
+  <!-- Left page: ayah number circle -->
+  <circle cx="68" cy="102" r="10" fill="#C9A84C"/>
+  <text x="68" y="106" font-family="Arial" font-size="9" fill="#FFFFFF"
+    text-anchor="middle" font-weight="700">١</text>
+
+  <!-- Right page: Translation lines -->
+  <text x="200" y="100" font-family="Arial" font-size="9" fill="#888">Translation</text>
+  <rect x="200" y="110" width="110" height="2" rx="1" fill="#ddd"/>
+  <rect x="200" y="122" width="95" height="2" rx="1" fill="#ddd"/>
+  <rect x="200" y="134" width="110" height="2" rx="1" fill="#ddd"/>
+  <rect x="200" y="146" width="80" height="2" rx="1" fill="#ddd"/>
+  <rect x="200" y="158" width="110" height="2" rx="1" fill="#ddd"/>
+  <rect x="200" y="170" width="90" height="2" rx="1" fill="#ddd"/>
+
+  <!-- Bookmark ribbon -->
+  <polygon points="295,70 310,70 310,110 302,102 295,110" fill="#C9A84C"/>
+
+  <!-- Stars decoration -->
+  <circle cx="30" cy="40" r="2" fill="#C9A84C" opacity="0.6"/>
+  <circle cx="180" cy="20" r="2" fill="#C9A84C" opacity="0.5"/>
+  <circle cx="330" cy="40" r="2" fill="#C9A84C" opacity="0.6"/>
+
+  <!-- Bottom label -->
+  <rect x="120" y="244" width="120" height="24" rx="12" fill="#1A6B52"/>
+  <text x="180" y="260" font-family="Arial" font-size="11" fill="#C9A84C"
+    text-anchor="middle" font-weight="600">114 SURAHS</text>
+
+</svg>

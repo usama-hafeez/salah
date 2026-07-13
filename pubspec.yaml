@@ -1,0 +1,113 @@
+name: prayer_app
+description: Prayer Times & Quran Widget
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Prayer time calculation (fully offline, no API needed)
+  adhan: ^2.0.0+1
+
+  # GPS location for prayer times
+  geolocator: ^14.0.2
+  permission_handler: ^12.0.1
+
+  # Home screen widget (Android + iOS)
+  home_widget: ^0.9.0
+
+  # Azaan notifications
+  flutter_local_notifications: ^21.0.0
+  timezone: ^0.11.0
+
+  # Quran SQLite database
+  sqflite: ^2.4.2
+  path_provider: ^2.1.3
+  path: ^1.9.0
+
+  # AdMob
+  google_mobile_ads: ^7.0.0
+
+  # In-app purchase
+  in_app_purchase: ^3.2.3
+
+  # Persistent settings
+  shared_preferences: ^2.3.2
+
+  # Qibla compass
+  flutter_compass: ^0.8.1
+
+  # Audio (Azaan)
+  just_audio: ^0.10.5
+
+  # Haptic feedback (Tasbih)
+  vibration: ^3.1.8
+
+  # SVG icons
+  flutter_svg: ^2.2.4
+
+  # State management
+  provider: ^6.1.2
+
+  # Hijri calendar
+  hijri: ^3.0.0
+
+  # HTTP (for future features)
+  http: ^1.2.1
+
+  # Quran Mushaf page rendering (QCF font, 604-page layout)
+  # Also exports getPageNumber, getSurahNameArabic, getJuzNumber, getVerse, getPageData, etc.
+  qcf_quran_lite: ^0.0.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+  # App launcher icons (adaptive + legacy) generated from source PNG
+  flutter_launcher_icons: ^0.14.4
+  # Native splash screen (incl. Android 12+ splash API)
+  flutter_native_splash: ^2.4.6
+
+# Launcher icon generation — run: dart run flutter_launcher_icons
+# Source images are produced by scripts/generate_brand_assets.py
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "assets/icons/generated/icon_master_1024.png"
+  min_sdk_android: 21
+  adaptive_icon_background: "#0F4C3A"
+  adaptive_icon_foreground: "assets/icons/generated/icon_foreground_1024.png"
+
+# Native splash screen — run: dart run flutter_native_splash:create
+flutter_native_splash:
+  color: "#0F4C3A"
+  image: "assets/icons/generated/splash_logo_1024.png"
+  android: true
+  ios: false
+  web: false
+  android_12:
+    color: "#0F4C3A"
+    image: "assets/icons/generated/splash_logo_1024.png"
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/audio/
+    - assets/fonts/
+    - assets/images/
+    - assets/db/
+    - assets/icons/
+
+  fonts:
+    - family: Hafs
+      fonts:
+        - asset: assets/fonts/Hafs.ttf
+    - family: NotoNastaliq
+      fonts:
+        - asset: assets/fonts/NotoNastaliqUrdu.ttf

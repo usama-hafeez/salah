@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Horizon line -->
+  <line x1="8" y1="42" x2="56" y2="42" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Setting sun (half above horizon) -->
+  <path d="M22 42 A10 10 0 0 1 42 42" fill="none" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Sun disk center -->
+  <circle cx="32" cy="42" r="2" fill="#C9A84C"/>
+  <!-- Rays above horizon only -->
+  <line x1="32" y1="24" x2="32" y2="18" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="18" y1="30" x2="13" y2="26" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="46" y1="30" x2="51" y2="26" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="20" y1="22" x2="16" y2="17" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="44" y1="22" x2="48" y2="17" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Reflection on water (subtle) -->
+  <line x1="24" y1="47" x2="40" y2="47" stroke="#C9A84C" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
+  <line x1="28" y1="51" x2="36" y2="51" stroke="#C9A84C" stroke-width="1" stroke-linecap="round" opacity="0.25"/>
+</svg>

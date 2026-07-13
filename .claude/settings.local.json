@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sudo apt-get:*)",
+      "Bash(convert -background none assets/images/onboarding_1.svg -resize 360x280 assets/images/onboarding_1.png)",
+      "Bash(convert -background none assets/images/onboarding_2.svg -resize 360x280 assets/images/onboarding_2.png)",
+      "Bash(convert -background none assets/images/onboarding_3.svg -resize 360x280 assets/images/onboarding_3.png)",
+      "Bash(cmd.exe:*)",
+      "Bash(export PATH=\"$PATH:/home/usamascuderia/flutter/bin\")",
+      "Bash(flutter pub *)",
+      "Bash(flutter doctor *)",
+      "Read(//mnt/c/Users/**)",
+      "Read(//mnt/c/Users/usama096/AppData/Local/Android/**)",
+      "Bash(cat)",
+      "Read(//tmp/**)",
+      "WebFetch(domain:pub.dev)",
+      "Bash(timeout 590 flutter build apk --debug)",
+      "Bash(yes)"
+    ]
+  }
+}
