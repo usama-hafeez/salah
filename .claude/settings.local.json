@@ -13,7 +13,9 @@
       "Read(//mnt/c/Users/usama096/AppData/Local/Android/**)",
       "Bash(cat)",
       "Read(//tmp/**)",
-      "WebFetch(domain:pub.dev)"
+      "WebFetch(domain:pub.dev)",
+      "Bash(timeout 590 flutter build apk --debug)",
+      "Bash(yes)"
     ]
   }
 }
